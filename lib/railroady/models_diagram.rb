@@ -146,7 +146,13 @@ class ModelsDiagram < AppDiagram
     end  
     # from patch #12384    
     # @graph.add_edge [assoc_type, class_name, assoc.class_name, assoc_name]
-    @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]    
+    if (@options.transitive)
+      @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]
+    else
+      if (! assoc.options[:through])
+        @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]
+      end
+    end
   end # process_association
 
 end # class ModelsDiagram

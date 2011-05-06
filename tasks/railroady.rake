@@ -17,6 +17,8 @@ namespace :diagram do
  
   @MODELS_ALL_SVG = full_path('models_complete.svg').freeze
   @MODELS_BRIEF_SVG = full_path('models_brief.svg').freeze
+  @MODELS_ALL_T_SVG = full_path('models_complete_t.svg').freeze
+  @MODELS_BRIEF_T_SVG = full_path('models_brief_t.svg').freeze
   @CONTROLLERS_ALL_SVG = full_path('controllers_complete.svg').freeze
   @CONTROLLERS_BRIEF_SVG = full_path('controllers_brief.svg').freeze
  
@@ -27,6 +29,10 @@ namespace :diagram do
       f = @MODELS_ALL_SVG
       puts "Generating #{f}"
       sh "railroady -ilamM | dot -Tsvg > #{f}"
+
+      f = @MODELS_ALL_T_SVG
+      puts "Generating #{f}"
+      sh "railroady -ilamtM | dot -Tsvg > #{f}"
     end
  
     desc 'Generates an abbreviated SVG class diagram for all models.'
@@ -34,6 +40,10 @@ namespace :diagram do
       f = @MODELS_BRIEF_SVG
       puts "Generating #{f}"
       sh "railroady -bilamM | dot -Tsvg > #{f}"
+
+      f = @MODELS_BRIEF_T_SVG
+      puts "Generating #{f}"
+      sh "railroady -bilamtM | dot -Tsvg > #{f}"
     end
     
   end
