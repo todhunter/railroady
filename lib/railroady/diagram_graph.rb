@@ -36,7 +36,7 @@ class DiagramGraph
   def to_dot
     return dot_header +
            @nodes.map{|n| dot_node n[0], n[1], n[2]}.join +
-           @edges.map{|e| dot_edge e[0], e[1], e[2], e[3]}.join +
+           @edges.map{|e| dot_edge e[0], e[1], e[2], e[3], e[4]}.join +
            dot_footer
   end
 
@@ -106,17 +106,21 @@ class DiagramGraph
   end # dot_node
 
   # Build a DOT graph edge
-  def dot_edge(type, from, to, name = '')
+  def dot_edge(type, from, to, name = '',color)
     options =  name != '' ? "label=\"#{name}\", " : ''
     case type
       when 'one-one'
            options += 'arrowtail=odot, arrowhead=dot, dir=both'
+           color.nil? ? '' : options+=",color=\"#{color}\""
       when 'one-many'
            options += 'arrowtail=odot, arrowhead=crow, dir=both'
+           color.nil? ? '' : options+=",color=\"#{color}\""
       when 'many-many'
            options += 'arrowtail=crow, arrowhead=crow, dir=both'
+           color.nil? ? '' : options+=",color=\"#{color}\""
       when 'is-a'
            options += 'arrowhead="none", arrowtail="onormal"'
+           color.nil? ? '' : options+=",color=\"#{color}\""
       when 'event'
            options += "fontsize=10"
     end

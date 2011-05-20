@@ -147,7 +147,11 @@ class ModelsDiagram < AppDiagram
     # from patch #12384    
     # @graph.add_edge [assoc_type, class_name, assoc.class_name, assoc_name]
     if (@options.transitive)
-      @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]
+      if (! assoc.options[:through])
+        @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]
+      else
+        @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name,'red']
+      end
     else
       if (! assoc.options[:through])
         @graph.add_edge [assoc_type, class_name, assoc_class_name, assoc_name]
